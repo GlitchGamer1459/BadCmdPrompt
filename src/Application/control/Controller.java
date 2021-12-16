@@ -9,7 +9,7 @@ public class Controller {
     public static final TerminalFrame terminal = new TerminalFrame();
     public static final EventHandler eventHandler = new EventHandler();
 
-    private static void launchMessage() {
+    public static void launchMessage() {
         Terminal.out.println("Lightning Parser for Microsoft Windows [Version 3.4.12-15-2021]");
         Terminal.out.println("(c) Jumping Jacks Incorporated. All rights reserved.");
         Terminal.out.println();

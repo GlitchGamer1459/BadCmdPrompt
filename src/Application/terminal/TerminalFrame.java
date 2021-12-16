@@ -6,6 +6,7 @@ import java.awt.*;
 public class TerminalFrame extends JFrame {
 
     JTextField inputField;
+    JScrollPane scrollPane;
     public JTextArea outputScreen;
 
     public void setKeyListener(EventHandler e) {
@@ -28,12 +29,18 @@ public class TerminalFrame extends JFrame {
         this.add(inputField);
 
         outputScreen = new JTextArea();
+        outputScreen.setBounds(0,0,this.getWidth(),this.getHeight() - 100 );
         outputScreen.setEditable(false);
-        outputScreen.setBounds(0,0,this.getWidth(),this.getHeight() - 62 );
         outputScreen.setBackground(new Color(0x181818));
         outputScreen.setFont(new Font("SansSerif", Font.PLAIN, 15));
         outputScreen.setForeground(Color.WHITE);
-        this.add(outputScreen);
+
+        scrollPane = new JScrollPane(outputScreen);
+        scrollPane.setBounds(0, 0, this.getWidth(),this.getHeight() - 100);
+        scrollPane.createVerticalScrollBar();
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setWheelScrollingEnabled(true);
+        this.getContentPane().add(scrollPane);
 
         this.setVisible(true);
     }

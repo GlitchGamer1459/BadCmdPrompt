@@ -81,6 +81,7 @@ public class IOEngine {
 
     public void clearTerminalScreen() {
         Controller.terminal.outputScreen.setText("");
+        Controller.launchMessage();
     }
 
     private void parsePlay(String secondary) {
@@ -124,7 +125,7 @@ public class IOEngine {
                         helpMenu();
             case 2 -> // play index in PRIMARY_CMDS
                         //parsePlay(secondary);
-                        Terminal.out.println("play is temporarily disabled");
+                        Terminal.out.println("Play is temporarily disabled");
             case 3 -> // calculate index in PRIMARY_CMDS
                         parseCalc(secondary, tertiary);
             case 4 -> // cls index in PRIMARY_CMDS
