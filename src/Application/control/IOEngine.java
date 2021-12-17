@@ -92,7 +92,7 @@ public class IOEngine {
             case 1 ->
                     Terminal.out.println("TicTacToe isn't ready yet");
             case 2 ->
-                    GuessGame.start();
+                    Terminal.setActiveCycle(1);
             default -> // triggers if no match in PLAY_CMDS
                     Terminal.err.println("Not a valid command");
         }
@@ -124,8 +124,7 @@ public class IOEngine {
             case 1 -> // help index in PRIMARY_CMDS
                         helpMenu();
             case 2 -> // play index in PRIMARY_CMDS
-                        //parsePlay(secondary);
-                        Terminal.out.println("Play is temporarily disabled");
+                        parsePlay(secondary);
             case 3 -> // calculate index in PRIMARY_CMDS
                         parseCalc(secondary, tertiary);
             case 4 -> // cls index in PRIMARY_CMDS

@@ -1,6 +1,8 @@
 package Application.terminal;
 
 import Application.control.Controller;
+import Application.control.Terminal;
+import Application.play.GuessGame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +10,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class EventHandler implements KeyListener, ActionListener {
+
+    @SuppressWarnings("all")
+    private boolean gameAlreadyInit = false;
 
     //KeyListener methods
     @Override
@@ -20,7 +25,19 @@ public class EventHandler implements KeyListener, ActionListener {
         if (e.getKeyCode() == 10) {
             String input = Controller.terminal.inputField.getText();
             Controller.terminal.inputField.setText("");
-            Controller.ioEngine.parseInput(input);
+            switch (Terminal.getActiveCycle()) {
+                case 0 ->
+                    Controller.ioEngine.parseInput(input);
+                case 1 -> {
+                    if (!gameAlreadyInit) {
+                        GuessGame.start();
+                        gameAlreadyInit = true;
+                    }
+
+                    GuessGame.runGame(input);
+                }
+                case 2 -> {}
+            }
         }
     }
 
