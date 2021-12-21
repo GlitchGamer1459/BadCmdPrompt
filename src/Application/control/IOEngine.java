@@ -89,9 +89,9 @@ public class IOEngine {
         switch (playIndex) {
             case 0 ->
                     Terminal.out.println("Hangman isn't ready yet");
-            case 1 ->
-                    Terminal.out.println("TicTacToe isn't ready yet");
-            case 2 ->
+            case 1 -> // switches active cycle to TicTacToe
+                    Terminal.setActiveCycle(2);
+            case 2 -> // switches active cycle to Guessing Game
                     Terminal.setActiveCycle(1);
             default -> // triggers if no match in PLAY_CMDS
                     Terminal.err.println("Not a valid command");

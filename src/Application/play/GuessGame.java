@@ -1,5 +1,6 @@
 package Application.play;
 
+import Application.control.Controller;
 import Application.control.Terminal;
 
 public class GuessGame {
@@ -21,6 +22,7 @@ public class GuessGame {
             Terminal.out.println("Stopping game, returning to Controller...");
 
             Terminal.setActiveCycle(0);
+            Controller.eventHandler.gameAlreadyInit = false;
         }
 
         try {
@@ -32,6 +34,7 @@ public class GuessGame {
                 Terminal.out.println("Returning to Controller...");
 
                 Terminal.setActiveCycle(0);
+                Controller.eventHandler.gameAlreadyInit = false;
             } else if (inputInt < answerInt) {
                 Terminal.out.println("Bigger");
             } else {
@@ -41,7 +44,6 @@ public class GuessGame {
             Terminal.out.println("Invalid Input");
         }
     }
-
 
     public static void start() {
         answer = randPosInt(1000);

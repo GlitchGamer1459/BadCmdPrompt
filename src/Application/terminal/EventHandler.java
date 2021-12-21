@@ -3,6 +3,7 @@ package Application.terminal;
 import Application.control.Controller;
 import Application.control.Terminal;
 import Application.play.GuessGame;
+import Application.play.TicTacToe;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +13,7 @@ import java.awt.event.KeyListener;
 public class EventHandler implements KeyListener, ActionListener {
 
     @SuppressWarnings("all")
-    private boolean gameAlreadyInit = false;
+    public boolean gameAlreadyInit = false;
 
     //KeyListener methods
     @Override
@@ -26,9 +27,9 @@ public class EventHandler implements KeyListener, ActionListener {
             String input = Controller.terminal.inputField.getText();
             Controller.terminal.inputField.setText("");
             switch (Terminal.getActiveCycle()) {
-                case 0 ->
+                case 0 -> // runs the base Terminal cycle
                     Controller.ioEngine.parseInput(input);
-                case 1 -> {
+                case 1 -> { // runs the guessing game
                     if (!gameAlreadyInit) {
                         GuessGame.start();
                         gameAlreadyInit = true;
@@ -36,7 +37,14 @@ public class EventHandler implements KeyListener, ActionListener {
 
                     GuessGame.runGame(input);
                 }
-                case 2 -> {}
+                case 2 -> {
+                    if (!gameAlreadyInit) {
+                        TicTacToe.start();
+                        gameAlreadyInit = true;
+                    }
+
+                    TicTacToe.runGame(input);
+                }
             }
         }
     }

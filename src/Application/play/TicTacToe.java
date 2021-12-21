@@ -1,9 +1,8 @@
 package Application.play;
 
+import Application.control.Controller;
 import Application.control.IOEngine;
 import Application.control.Terminal;
-
-import java.util.Scanner;
 
 public class TicTacToe {
 
@@ -45,21 +44,13 @@ public class TicTacToe {
         }
     }
 
-    private static void scan(Scanner scanner) {
-        String input;
-        boolean running = true;
-
-        while (running) {
-            input = scanner.nextLine();
-
-            parseChain(input);
-            printBoard();
-        }
+    public static void runGame(String string) {
+        Controller.ioEngine.clearTerminalScreen();
+        parseChain(string);
+        printBoard();
     }
 
     public static void start() {
-        Scanner scanner = new Scanner(System.in);
-
-        scan(scanner);
+        Terminal.setActiveCycle(2);
     }
 }

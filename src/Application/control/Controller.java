@@ -17,6 +17,7 @@ public class Controller {
 
     public static void start() {
         ioEngine.running = true;
+        Terminal.setActiveCycle(0);
 
         terminal.setKeyListener(eventHandler);
         launchMessage();
