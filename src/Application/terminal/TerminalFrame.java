@@ -18,13 +18,13 @@ public class TerminalFrame extends JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLayout(null);
         this.setResizable(false);
-        this.setTitle("Lightning Shell - V2.3");
+        this.setTitle("Lightning Shell - V3.4");
 
         inputField = new JTextField();
         inputField.setBounds(0,this.getHeight() - 100,this.getWidth(),62);
         inputField.setBackground(new Color(0x9B9B9B));
         inputField.setBorder(null);
-        inputField.setFont(new Font("SansSerif", Font.PLAIN, 15));
+        inputField.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 15));
         inputField.setForeground(Color.white);
         this.add(inputField);
 
@@ -32,7 +32,7 @@ public class TerminalFrame extends JFrame {
         outputScreen.setBounds(0,0,this.getWidth(),this.getHeight() - 100 );
         outputScreen.setEditable(false);
         outputScreen.setBackground(new Color(0x181818));
-        outputScreen.setFont(new Font("SansSerif", Font.PLAIN, 15));
+        outputScreen.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 15));
         outputScreen.setForeground(Color.WHITE);
 
         scrollPane = new JScrollPane(outputScreen);
