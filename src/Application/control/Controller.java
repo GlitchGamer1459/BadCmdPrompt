@@ -3,6 +3,14 @@ package Application.control;
 import Application.terminal.EventHandler;
 import Application.terminal.TerminalFrame;
 
+/*
+TODO: change static class properties in TicTacToe to be instance based
+TODO: learn about/implement layout manager to aid resizability, i.e. BorderLayout
+TODO: add more calculate commands
+TODO: make hangman
+TODO: come up with a new project
+ */
+
 public class Controller {
 
     public static final IOEngine ioEngine = new IOEngine();
@@ -24,6 +32,6 @@ public class Controller {
     }
 
     public static void main(String[] args) {
-        start();
+        Controller.start();
     }
 }

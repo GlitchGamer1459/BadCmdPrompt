@@ -12,8 +12,8 @@ import java.awt.event.KeyListener;
 
 public class EventHandler implements KeyListener, ActionListener {
 
-    @SuppressWarnings("all")
     public boolean gameAlreadyInit = false;
+    private final GuessGame guessGame = new GuessGame();
 
     //KeyListener methods
     @Override
@@ -31,11 +31,11 @@ public class EventHandler implements KeyListener, ActionListener {
                     Controller.ioEngine.parseInput(input);
                 case 1 -> { // runs the guessing game
                     if (!gameAlreadyInit) {
-                        GuessGame.start();
+                        guessGame.start();
                         gameAlreadyInit = true;
                     }
 
-                    GuessGame.runGame(input);
+                    guessGame.runGame(input);
                 }
                 case 2 -> {
                     if (!gameAlreadyInit) {

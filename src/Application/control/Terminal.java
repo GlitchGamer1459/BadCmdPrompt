@@ -2,8 +2,9 @@ package Application.control;
 
 public class Terminal {
 
-    public static Out out = new Out(Controller.terminal.outputScreen);
-    public static Error err = new Error(Controller.terminal.outputScreen);
+    private static final Controller controller = new Controller();
+    public static final Out out = new Out(controller.terminal.outputScreen);
+    public static final Error err = new Error(controller.terminal.outputScreen);
 
     private static int activeCycle = 0;
 

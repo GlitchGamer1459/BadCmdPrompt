@@ -5,24 +5,22 @@ import Application.control.Terminal;
 
 public class GuessGame {
 
-    private static final String STOP = "stop";
-    private static String answer;
+    @SuppressWarnings("FieldCanBeLocal") private final String STOP = "stop";
+    private String answer;
 
     @SuppressWarnings("SameParameterValue")
-    private static String randPosInt(int max) {
+    private String randPosInt(int max) {
         return "" + (int)Math.floor(Math.random() * max);
     }
 
-    public static void runGame(String input) {
+    public void runGame(String input) {
         int inputInt;
         int answerInt;
-        Terminal.out.println(answer);
 
         if (input.equals(STOP)) {
             Terminal.out.println("Stopping game, returning to Controller...");
 
-            Terminal.setActiveCycle(0);
-            Controller.eventHandler.gameAlreadyInit = false;
+            stop();
         }
 
         try {
@@ -33,8 +31,7 @@ public class GuessGame {
                 Terminal.out.println("You Win!!");
                 Terminal.out.println("Returning to Controller...");
 
-                Terminal.setActiveCycle(0);
-                Controller.eventHandler.gameAlreadyInit = false;
+                stop();
             } else if (inputInt < answerInt) {
                 Terminal.out.println("Bigger");
             } else {
@@ -45,7 +42,12 @@ public class GuessGame {
         }
     }
 
-    public static void start() {
+    private void stop() {
+        Terminal.setActiveCycle(0);
+        Controller.eventHandler.gameAlreadyInit = false;
+    }
+
+    public void start() {
         answer = randPosInt(1000);
         Terminal.setActiveCycle(1);
     }
