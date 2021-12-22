@@ -13,7 +13,7 @@ import java.awt.event.KeyListener;
 public class EventHandler implements KeyListener, ActionListener {
 
     public boolean gameAlreadyInit = false;
-    private final GuessGame guessGame = new GuessGame();
+    public final GuessGame guessGame = new GuessGame();
 
     //KeyListener methods
     @Override
@@ -43,7 +43,9 @@ public class EventHandler implements KeyListener, ActionListener {
                         gameAlreadyInit = true;
                     }
 
-                    TicTacToe.runGame(input);
+                    if (TicTacToe.runGame(input) == 0) {
+                        TicTacToe.reset();
+                    }
                 }
             }
         }

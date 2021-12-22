@@ -43,8 +43,8 @@ public class GuessGame {
     }
 
     private void stop() {
-        Terminal.setActiveCycle(0);
         Controller.eventHandler.gameAlreadyInit = false;
+        Terminal.setActiveCycle(0);
     }
 
     public void start() {

@@ -4,6 +4,8 @@ import Application.control.Controller;
 import Application.control.IOEngine;
 import Application.control.Terminal;
 
+import java.util.Arrays;
+
 public class TicTacToe {
 
     private static final IOEngine stringMethods = new IOEngine();
@@ -11,6 +13,9 @@ public class TicTacToe {
     @SuppressWarnings("FieldCanBeLocal") private static final String STOP = "stop";
 
     private static char charToPrint = 'X';
+    private static char charDidPrint = 'O';
+    private static String message = "Default";
+    private static int statusCode = 1;
 
     @SuppressWarnings("FieldMayBeFinal")
     private static char[][] values = {
@@ -20,6 +25,8 @@ public class TicTacToe {
     };
 
     private static void printBoard() {
+        Terminal.out.println(message);
+
         Terminal.out.println(" " + values[0][0] + " | " + values[0][1] + " | " + values[0][2] + " ");
         Terminal.out.println("---+---+---");
         Terminal.out.println(" " + values[1][0] + " | " + values[1][1] + " | " + values[1][2] + " ");
@@ -28,47 +35,122 @@ public class TicTacToe {
     }
 
     private static void parseChain(String chain) { // a chain looks like this: '1.1' or this: '0.2'
+        boolean hasCaughtError = false;
+        String errorMsg = "";
+
         if (chain.equals(STOP)) {
             Terminal.setActiveCycle(0);
 
-            stop();
+            stop(true);
         } else {
             try {
                 int vertical = Integer.parseInt(stringMethods.getUntilFirst('.', chain));
                 int horizontal = Integer.parseInt(stringMethods.getUntilSecond('.', chain));
 
-                if (charToPrint == 'X') {
-                    charToPrint = 'O';
-                } else {
-                    charToPrint = 'X';
-                }
-
                 if (values[vertical][horizontal] == ' ') {
                     values[vertical][horizontal] = charToPrint;
                 } else {
-                    Terminal.out.println("That tile is already taken");
+                    hasCaughtError = true;
+                    errorMsg += "; That tile is already taken";
                 }
+
+                swapTurn();
             } catch (NumberFormatException nfe) {
-                Terminal.out.println("Not A Valid Input, try again");
+                errorMsg += "; Not a valid input, wrong format";
             } catch (ArrayIndexOutOfBoundsException e) {
-                Terminal.out.println("Not A Valid Input, must be within range of 0-2");
+                errorMsg += "; Not A Valid Input, must be within range of 0-2";
+            }
+
+            if (hasCaughtError) {
+                swapTurn();
+                message += errorMsg;
             }
         }
     }
 
-    public static void runGame(String string) {
-        Controller.ioEngine.clearTerminalScreen();
-        parseChain(string);
-        printBoard();
+    private static void scanForWin() {
+        //scan rows
+        for (int i = 0; i < 3; i++) {
+            if (isPointsEquivalent(i,0,i,1,i,2)) {
+                message = charDidPrint + " wins!";
+                stop(false);
+            }
+        }
+
+        //scan columns
+        for (int i = 0; i < 3; i++) {
+            if (isPointsEquivalent(0,i,1,i,2,i)) {
+                message = charDidPrint + " wins!";
+                stop(false);
+            }
+        }
+
+        //check left-down-to-right diagonal
+        if (isPointsEquivalent(0,0,1,1,2,2)) {
+            message = charDidPrint + " wins!";
+            stop(false);
+        }
+
+        //check right-down-to-left diagonal
+        if (isPointsEquivalent(0,2,1,1,2,0)) {
+            message = charDidPrint + " wins!";
+            stop(false);
+        }
     }
 
-    private static void stop() {
-        Terminal.setActiveCycle(0);
-        Controller.eventHandler.gameAlreadyInit = false;
+    private static boolean isPointsEquivalent(int x1, int y1, int x2, int y2, int x3, int y3) {
+        if (values[x1][y1] == ' ' ||
+                values[x2][y2] == ' ' ||
+                values[x3][y3] == ' ') {
+            return false;
+        } else {
+            return values[x1][y1] == values[x2][y2] &&
+                    values[x1][y1] == values[x3][y3] &&
+                    values[x2][y2] == values[x3][y3];
+        }
+    }
+
+    private static void swapTurn() {
+        if (charToPrint == 'X') {
+            charToPrint = 'O';
+            charDidPrint = 'X';
+            message = "O's turn";
+        } else {
+            charToPrint = 'X';
+            charDidPrint = 'O';
+            message = "X's turn";
+        }
+    }
+
+    public static int runGame(String string) {
         Controller.ioEngine.clearTerminalScreen();
+        parseChain(string);
+        scanForWin();
+        printBoard();
+
+        return statusCode;
+    }
+
+    public static void reset() {
+        for (char[] value : values) Arrays.fill(value, ' ');
+    }
+
+    private static void stop(boolean doCLS) {
+        Controller.eventHandler.gameAlreadyInit = false;
+
+        statusCode = 0;
+
+        if (doCLS) {
+            Controller.ioEngine.clearTerminalScreen();
+        }
+
+        Terminal.setActiveCycle(0);
     }
 
     public static void start() {
+        message = "Welcome to Tic Tac Toe! see 'help' for more info";
+        printBoard();
+        statusCode = 1;
         Terminal.setActiveCycle(2);
     }
 }

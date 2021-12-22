@@ -1,6 +1,7 @@
 package Application.control;
 
 import Application.calculate.calcParser;
+import Application.play.TicTacToe;
 
 public class IOEngine {
 
@@ -89,9 +90,9 @@ public class IOEngine {
             case 0 ->
                     Terminal.out.println("Hangman isn't ready yet");
             case 1 -> // switches active cycle to TicTacToe
-                    Terminal.setActiveCycle(2);
+                    TicTacToe.start();
             case 2 -> // switches active cycle to Guessing Game
-                    Terminal.setActiveCycle(1);
+                    Controller.eventHandler.guessGame.start();
             default -> // triggers if no match in PLAY_CMDS
                     Terminal.err.println("Not a valid command");
         }
