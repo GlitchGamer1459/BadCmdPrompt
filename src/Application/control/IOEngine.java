@@ -1,13 +1,11 @@
 package Application.control;
 
-import Application.calculate.calcParser;
-import Application.play.TicTacToe;
+import Application.calculate.CalcParser;
 
 public class IOEngine {
 
     private final CommandIndexList indexList = new CommandIndexList();
-
-    public boolean running = false;
+    private final CalcParser calculator = new CalcParser();
 
     @SuppressWarnings("UnnecessaryStringEscape")
     private void helpMenu() {
@@ -90,7 +88,7 @@ public class IOEngine {
             case 0 ->
                     Terminal.out.println("Hangman isn't ready yet");
             case 1 -> // switches active cycle to TicTacToe
-                    TicTacToe.start();
+                    Controller.eventHandler.ticTacToe.start();
             case 2 -> // switches active cycle to Guessing Game
                     Controller.eventHandler.guessGame.start();
             default -> // triggers if no match in PLAY_CMDS
@@ -100,7 +98,7 @@ public class IOEngine {
 
     private void parseCalc(String secondary, String tertiary) {
         int calcIndex = indexList.CALCULATE_CMDS.getOrDefault(secondary, -1);
-        calcParser.parseInput(tertiary , calcIndex);
+        calculator.parseInput(tertiary , calcIndex);
     }
 
     public void parseInput(String input) {

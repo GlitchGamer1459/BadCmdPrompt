@@ -4,10 +4,10 @@ import Application.terminal.EventHandler;
 import Application.terminal.TerminalFrame;
 
 /*
-TODO: change static class properties in TicTacToe to be instance based
 TODO: learn about/implement layout manager to aid resizability, i.e. BorderLayout
 TODO: add more calculate commands
 TODO: make hangman
+TODO: update help menu
 TODO: come up with a new project
  */
 
@@ -24,7 +24,6 @@ public class Controller {
     }
 
     public static void start() {
-        ioEngine.running = true;
         Terminal.setActiveCycle(0);
 
         terminal.setKeyListener(eventHandler);

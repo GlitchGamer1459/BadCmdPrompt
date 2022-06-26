@@ -14,6 +14,7 @@ public class EventHandler implements KeyListener, ActionListener {
 
     public boolean gameAlreadyInit = false;
     public final GuessGame guessGame = new GuessGame();
+    public final TicTacToe ticTacToe = new TicTacToe();
 
     //KeyListener methods
     @Override
@@ -39,12 +40,12 @@ public class EventHandler implements KeyListener, ActionListener {
                 }
                 case 2 -> {
                     if (!gameAlreadyInit) {
-                        TicTacToe.start();
+                        ticTacToe.start();
                         gameAlreadyInit = true;
                     }
 
-                    if (TicTacToe.runGame(input) == 0) {
-                        TicTacToe.reset();
+                    if (ticTacToe.runGame(input) == 0) {
+                        ticTacToe.reset();
                     }
                 }
             }

@@ -8,23 +8,23 @@ import java.util.Arrays;
 
 public class TicTacToe {
 
-    private static final IOEngine stringMethods = new IOEngine();
+    private final IOEngine stringMethods = new IOEngine();
 
-    @SuppressWarnings("FieldCanBeLocal") private static final String STOP = "stop";
+    @SuppressWarnings("FieldCanBeLocal") private final String STOP = "stop";
 
-    private static char charToPrint = 'X';
-    private static char charDidPrint = 'O';
-    private static String message = "Default";
-    private static int statusCode = 1;
+    private char charToPrint = 'X';
+    private char charDidPrint = 'O';
+    private String message = "Default";
+    private int statusCode = 1;
 
     @SuppressWarnings("FieldMayBeFinal")
-    private static char[][] values = {
+    private char[][] values = {
             { ' ', ' ', ' ' },
             { ' ', ' ', ' ' },
             { ' ', ' ', ' ' }
     };
 
-    private static void printBoard() {
+    private void printBoard() {
         Terminal.out.println(message);
 
         Terminal.out.println(" " + values[0][0] + " | " + values[0][1] + " | " + values[0][2] + " ");
@@ -34,13 +34,11 @@ public class TicTacToe {
         Terminal.out.println(" " + values[2][0] + " | " + values[2][1] + " | " + values[2][2] + " ");
     }
 
-    private static void parseChain(String chain) { // a chain looks like this: '1.1' or this: '0.2'
+    private void parseChain(String chain) { // a chain looks like this: '1.1' or this: '0.2'
         boolean hasCaughtError = false;
         String errorMsg = "";
 
         if (chain.equals(STOP)) {
-            Terminal.setActiveCycle(0);
-
             stop(true);
         } else {
             try {
@@ -68,7 +66,7 @@ public class TicTacToe {
         }
     }
 
-    private static void scanForWin() {
+    private void scanForWin() {
         //scan rows
         for (int i = 0; i < 3; i++) {
             if (isPointsEquivalent(i,0,i,1,i,2)) {
@@ -98,7 +96,7 @@ public class TicTacToe {
         }
     }
 
-    private static boolean isPointsEquivalent(int x1, int y1, int x2, int y2, int x3, int y3) {
+    private boolean isPointsEquivalent(int x1, int y1, int x2, int y2, int x3, int y3) {
         if (values[x1][y1] == ' ' ||
                 values[x2][y2] == ' ' ||
                 values[x3][y3] == ' ') {
@@ -110,7 +108,7 @@ public class TicTacToe {
         }
     }
 
-    private static void swapTurn() {
+    private void swapTurn() {
         if (charToPrint == 'X') {
             charToPrint = 'O';
             charDidPrint = 'X';
@@ -122,7 +120,7 @@ public class TicTacToe {
         }
     }
 
-    public static int runGame(String string) {
+    public int runGame(String string) {
         Controller.ioEngine.clearTerminalScreen();
         parseChain(string);
         scanForWin();
@@ -131,11 +129,11 @@ public class TicTacToe {
         return statusCode;
     }
 
-    public static void reset() {
+    public void reset() {
         for (char[] value : values) Arrays.fill(value, ' ');
     }
 
-    private static void stop(boolean doCLS) {
+    private void stop(boolean doCLS) {
         Controller.eventHandler.gameAlreadyInit = false;
 
         statusCode = 0;
@@ -147,7 +145,7 @@ public class TicTacToe {
         Terminal.setActiveCycle(0);
     }
 
-    public static void start() {
+    public void start() {
         message = "Welcome to Tic Tac Toe! see 'help' for more info";
         printBoard();
         statusCode = 1;
